@@ -1,0 +1,15 @@
+{
+  "name": "mobx-plain-demo",
+  "version": "1.0.0",
+  "description": "Try out MobX without any GUI involvement",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "mobx": "^4.1.0"
+  },
+  "devDependencies": {
+    "eslint": "^4.19.0",
+    "jest": "^22.4.2",
+    "prettier": "^1.11.1"
+  }
+}
