@@ -1,4 +1,4 @@
-const { observable, decorate, autorun } = require("mobx");
+const { observable, decorate, autorun, computed } = require("mobx");
 
 describe("MobX Todo", () => {
   describe("observable property", () => {
@@ -45,7 +45,7 @@ describe("MobX Todo", () => {
       expect(observerCalls).toBe(1);
     });
 
-    it("lets a function run a store", () => {
+    it("lets a function as a reaction to store changes", () => {
       // autorun() runs the callback function immediately to learn which properties it looks at.
       expect(observerCalls).toBe(1);
       todo.title = "yeah";
@@ -61,6 +61,29 @@ describe("MobX Todo", () => {
       disposer();
       todo.title = "great";
       expect(observerCalls).toBe(2);
+    });
+  });
+
+  describe("computed property", () => {
+    class Square {
+      constructor() {
+        this.width = 0;
+      }
+
+      get area() {
+        return this.width * this.width;
+      }
+    }
+
+    decorate(Square, { width: observable, area: computed });
+
+    const square = new Square();
+
+    it("updates automatically", () => {
+      square.width = 2;
+      expect(square.area).toBe(4);
+      square.width = 3;
+      expect(square.area).toBe(9);
     });
   });
 });
